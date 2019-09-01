@@ -8,7 +8,6 @@ var UserSchema = new Schema(
     name: String,
     username: String,
     password: String,
-    email: String,
   },
   { timestamps: true }
 );

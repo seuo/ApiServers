@@ -5,12 +5,12 @@ var logger = require('morgan');
 var cors = require('cors');
 var fileUpload = require('express-fileupload');
 
-var Project = require('./project-model');
-var User = require('./user-model');
-var Type = require('./type-model');
+var Idea = require('./idea-model');
+// var User = require('./user-model');
+// var Type = require('./type-model');
 
 //setup database connection
-var connectionString = 'mongodb://demo2admin:demo2password@cluster0-shard-00-00-1fbjw.mongodb.net:27017,cluster0-shard-00-01-1fbjw.mongodb.net:27017,cluster0-shard-00-02-1fbjw.mongodb.net:27017/portfolio?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority';
+var connectionString = 'mongodb://adminSam:Qwert123@brainstormusers-shard-00-00-qol9b.gcp.mongodb.net:27017,brainstormusers-shard-00-01-qol9b.gcp.mongodb.net:27017,brainstormusers-shard-00-02-qol9b.gcp.mongodb.net:27017/ideas?ssl=true&replicaSet=brainstormUsers-shard-0&authSource=admin&retryWrites=true&w=majority';
 mongoose.connect(connectionString,{ useNewUrlParser: true });
 var  db = mongoose.connection;
 db.once('open', () => console.log('Database connected'));
@@ -37,159 +37,159 @@ router.get('/testing', (req, res) => {
   res.send('<h1>Testing is working</h1>')
 })
 
-router.get('/projects', (req, res) => {
+router.get('/idea', (req, res) => {
 
-	Project.find()
-	.then((projects) => {
-	    return res.json(projects);
+	Idea.find()
+	.then((idea) => {
+	    return res.json(idea);
 	});
 
 })
 
-router.get('/projects/:id', (req, res) => {
+router.get('/idea/:id', (req, res) => {
 
-	Project.findOne({id:req.params.id})
-	.then((project) => {
-	    return res.json(project);
+	Idea.findOne({id:req.params.id})
+	.then((Idea) => {
+	    return res.json(Idea);
 	});
 })
 
-router.post('/projects', (req, res) => {
+router.post('/idea', (req, res) => {
 
-	var project = new Project();
-	project.id = Date.now();
+	var Idea = new Idea();
+	Idea.id = Date.now();
 	
 	var data = req.body;
 	console.log(data);
-	Object.assign(project,data);
+	Object.assign(Idea,data);
 	
-	project.save()
-	.then((project) => {
-	  	return res.json(project);
+	Idea.save()
+	.then((Idea) => {
+	  	return res.json(Idea);
 	});
 });
 
-router.delete('/projects/:id', (req, res) => {
+router.delete('/idea/:id', (req, res) => {
 
-	Project.deleteOne({ id: req.params.id })
+	Idea.deleteOne({ id: req.params.id })
 	.then(() => {
 		return res.json('deleted');
 	});
 });
 
-router.put('/projects/:id', (req, res) => {
+router.put('/idea/:id', (req, res) => {
 
-	Project.findOne({id:req.params.id})
-	.then((project) => {
+	Idea.findOne({id:req.params.id})
+	.then((Idea) => {
 		var data = req.body;
-		Object.assign(project,data);
-		return project.save()	
+		Object.assign(Idea,data);
+		return Idea.save()	
 	})
-	.then((project) => {
-		return res.json(project);
+	.then((Idea) => {
+		return res.json(Idea);
 	});	
 
 });
 
-router.get('/users', (req, res) => {
+// router.get('/users', (req, res) => {
 
-	User.find()
-	.then((users) => {
-	    return res.json(users);
-	});
+// 	User.find()
+// 	.then((users) => {
+// 	    return res.json(users);
+// 	});
 
-})
+// })
 
-router.get('/users/:id', (req, res) => {
-
-
-	User.findOne({id:req.params.id})
-	.then((user) => {
-	    return res.json(user);
-	});
-})
+// router.get('/users/:id', (req, res) => {
 
 
-router.post('/users', (req, res) => {
+// 	User.findOne({id:req.params.id})
+// 	.then((user) => {
+// 	    return res.json(user);
+// 	});
+// })
 
-	var user = new User();
-	user.id = Date.now();
+
+// router.post('/users', (req, res) => {
+
+// 	var user = new User();
+// 	user.id = Date.now();
 	
-	var data = req.body;
-	Object.assign(user,data);
+// 	var data = req.body;
+// 	Object.assign(user,data);
 	
-	user.save()
-	.then((user) => {
-	  	return res.json(user);
-	});
-});
+// 	user.save()
+// 	.then((user) => {
+// 	  	return res.json(user);
+// 	});
+// });
 
-router.delete('/users/:id', (req, res) => {
+// router.delete('/users/:id', (req, res) => {
 
-	User.deleteOne({ id: req.params.id })
-	.then(() => {
-		return res.json('deleted');
-	});
-});
+// 	User.deleteOne({ id: req.params.id })
+// 	.then(() => {
+// 		return res.json('deleted');
+// 	});
+// });
 
-router.put('/users/:id', (req, res) => {
+// router.put('/users/:id', (req, res) => {
 
-	User.findOne({id:req.params.id})
-	.then((user) => {
-		var data = req.body;
-		Object.assign(user,data);
-		return user.save()	
-	})
-	.then((user) => {
-		return res.json(user);
-	});	
+// 	User.findOne({id:req.params.id})
+// 	.then((user) => {
+// 		var data = req.body;
+// 		Object.assign(user,data);
+// 		return user.save()	
+// 	})
+// 	.then((user) => {
+// 		return res.json(user);
+// 	});	
 
-});
+// });
 
-router.get('/types', (req, res) => {
+// router.get('/types', (req, res) => {
 
-	Type.find()
-	.then((types) => {
+// 	Type.find()
+// 	.then((types) => {
 
-	    return res.json(types);
-	});
+// 	    return res.json(types);
+// 	});
 
-})
+// })
 
-router.get('/types/:id', (req, res) => {
+// router.get('/types/:id', (req, res) => {
 
-	Type.findOne({id:req.params.id})
-	.populate('projects')
-	.then((type) => {
+// 	Type.findOne({id:req.params.id})
+// 	.populate('idea')
+// 	.then((type) => {
 
-	    return res.json(type);
-	});
+// 	    return res.json(type);
+// 	});
 
-})
+// })
 
-router.post('/upload', (req, res) => {
+// router.post('/upload', (req, res) => {
 
-	var files = Object.values(req.files);
-	var uploadedFile = files[0];
+// 	var files = Object.values(req.files);
+// 	var uploadedFile = files[0];
 
-	var newName = Date.now() + uploadedFile.name;
+// 	var newName = Date.now() + uploadedFile.name;
 
-	uploadedFile.mv('public/'+ newName, function(){
-		res.send(newName)
-	})
+// 	uploadedFile.mv('public/'+ newName, function(){
+// 		res.send(newName)
+// 	})
 	
-});
+// });
 
-router.post('/authenticate', (req, res) => {
+// router.post('/authenticate', (req, res) => {
 
 	
-	var {username,password} = req.body;
-	var credential = {username,password}
-	User.findOne(credential)
-	.then((user) => {
-	    return res.json(user);
-	});
-});
+// 	var {username,password} = req.body;
+// 	var credential = {username,password}
+// 	User.findOne(credential)
+// 	.then((user) => {
+// 	    return res.json(user);
+// 	});
+// });
 
 
 
@@ -198,3 +198,4 @@ app.use('/api', router);
 // launch our backend into a port
 const apiPort = 3001;
 app.listen(apiPort, () => console.log('Listening on port '+apiPort));
+

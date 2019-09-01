@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Project = require('./project-model');
+var Project = require('./idea-model');
 
 // this will be our data base's data structure 
 var TypeSchema = new Schema(
