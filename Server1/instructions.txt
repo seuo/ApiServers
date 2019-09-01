@@ -1,0 +1,14 @@
+To install dependencies
+	npm init
+	npm install --save express
+	npm install --save mongoose
+	npm install --save body-parser
+	npm install --save morgan
+	npm install --save cors
+
+.gitignore
+	node_modules/
+
+To run server
+	node server
+	npx nodemon server
